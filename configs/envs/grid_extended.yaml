@@ -1,0 +1,18 @@
+# Environment: Extended grid sizes
+map_size: [12, 16, 24]
+num_uavs: [4, 6]
+obstacle_density: [0.0, 0.05, 0.10, 0.20]
+obstacle_type: [static, dynamic]
+max_steps: 2000
+energy_budget: 3600
+shaping_weight: 10.0
+# Base obstacle_shaping_weight, will be adjusted based on obstacle_density:
+# - 0.05: 5.0 (low)
+# - 0.10: 6.0 (medium)
+# - 0.20: 8.0 (high)
+obstacle_shaping_weight: 5.0
+# Dynamic obstacle shaping weights (will be applied in code based on obstacle_density)
+obstacle_shaping_weights:
+  0.05: 5.0
+  0.10: 6.0
+  0.20: 7.0  # 从6.5调整到7.0，平衡障碍回避和探索

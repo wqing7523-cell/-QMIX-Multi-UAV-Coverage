@@ -1,0 +1,274 @@
+研究生学位论文开题报告
+
+================================================================================
+一、论文题目
+================================================================================
+
+基于 QMIX 的多无人机集群覆盖路径规划：大规模栅格环境下的可扩展性与鲁棒性研究
+
+================================================================================
+一、课题来源,国内外研究现状、水平及发展趋势,选题的研究意义、目的,参考文献
+================================================================================
+
+（一）课题来源
+
+多智能体强化学习在多无人机覆盖路径规划中的应用研究起源于多无人机系统在复杂环境中的实际应用需求。随着无人机技术的快速发展，多无人机集群系统在农业监测、灾害巡检、林业巡护等领域的应用日益广泛，这些应用场景往往涉及大规模区域覆盖任务，且环境中存在大量障碍物，对多无人机的协同决策能力提出了较高要求。传统的基于优化的路径规划方法（如遗传算法、粒子群优化）在处理大规模、高障碍密度场景时面临计算复杂度高、实时性不足的问题。为解决这一问题，研究者开始探索基于学习的方法，特别是深度强化学习在路径规划中的应用。早期研究主要关注单智能体强化学习方法，但单智能体方法在多无人机场景中面临状态空间爆炸和缺乏显式交互建模的局限。近年来，多智能体强化学习（MARL）被引入多无人机协同任务，Rashid 等人提出的 QMIX 算法通过单调值分解将全局 Q 值表示为局部 Q 值的非负组合，在保持集中式训练优势的同时支持分布式执行，为多无人机协同覆盖路径规划提供了新的思路。本人在前期科研工作中围绕基于 QMIX 的多无人机二维协同覆盖问题开展了初步研究，形成了完整的算法框架与实验方案，并设计了势能型奖励塑形机制以提升探索效率。
+
+训练稳定性与系统可扩展性研究起源于多无人机系统在实际部署中面临的系统性问题。在实际应用中，多无人机覆盖路径规划不仅需要解决协同决策问题，还需要保证训练过程的稳定性和系统在不同规模场景下的可扩展性。传统 MARL 方法在训练稳定性方面主要依赖经验回放、目标网络等技术，但这些技术主要针对单智能体场景设计，在多智能体场景中，环境的非平稳性使训练更具挑战性。特别是在高障碍密度场景下，可达空间容易被分割成多个碎片化区域，训练过程容易出现性能退化和训练崩溃的问题，现有方法缺乏针对性的解决方案。同时，现有方法通常在小型地图（12×12 至 20×20）上进行评估，在较大地图（24×24 及以上）上的评估有限，使得这些方法是否能扩展到实际应用尚不清楚。近年来，研究者开始关注 MARL 中的训练稳定性问题，并探索在复杂环境下提升系统可扩展性的方法。本人在前期研究中设计了动态探索-恢复机制，通过性能退化检测和模型回滚提高了高障碍密度场景下的训练稳定性，并在 24 组配置下进行了系统化实验，全面评估了方法的可扩展性和鲁棒性。
+
+本课题将围绕多无人机集群覆盖路径规划在大规模栅格环境下的可扩展性与鲁棒性问题展开研究，重点解决高障碍密度场景下的协同决策、训练稳定性与系统可扩展性等关键技术问题，为多无人机系统在实际应用中的部署提供理论支撑和技术支持。
+
+================================================================================
+二、研究背景与意义
+================================================================================
+
+2.1 研究背景
+
+随着无人机技术的快速发展，多无人机集群系统在农业监测、灾害巡检、林业巡护等领域的应用日益广泛。在这些应用中，多架无人机需要协同完成大面积区域的巡检与监测任务，在有限能量预算下尽可能提高覆盖率并减少重复飞行。与单机作业相比，集群协同通过并行探索显著缩短任务完成时间，并在部分无人机故障时提供一定的容错能力。
+
+然而，实际应用场景往往伴随大尺度任务区域与高障碍密度：例如地震后的建筑废墟、树木密集的林区以及复杂城市环境。此时可达空间容易被分割成多个碎片化区域，路径规划不仅需要在全局层面实现覆盖，还要在局部层面避免频繁的碰撞与死锁。如何在复杂环境下同时兼顾覆盖效率、计算成本和系统鲁棒性，构成了当前多无人机覆盖路径规划面临的核心挑战。
+
+2.2 研究意义
+
+（1）理论意义
+本研究将多智能体强化学习（MARL）中的 QMIX 算法系统性地应用于多无人机覆盖路径规划任务，拓展了 MARL 在复杂环境下的应用边界。通过设计势能型奖励塑形机制和动态探索-恢复机制，丰富了多智能体强化学习在训练稳定性和探索效率方面的理论方法。
+
+（2）实践意义
+本研究提出的方法在高障碍密度（0.20）场景下平均覆盖率达到 77.5%，其中 24×24 大规模地图、6 架无人机配置达到 76.3% 的覆盖率，证明了方法在实际复杂环境中的有效性和可部署性。研究成果可直接应用于农业监测、灾害巡检、林业巡护等高障碍密度环境的实际应用场景。
+
+（3）学术价值
+本研究在 24 组配置下进行了系统化实验，全面评估了方法的可扩展性和鲁棒性，填补了现有 MARL 方法在高障碍密度、大规模地图场景下系统性评估的空白。通过完整的可复现性支持（公开代码、实验数据和复现脚本），为后续研究提供了良好的基础。
+
+================================================================================
+三、国内外研究现状
+================================================================================
+
+3.1 多智能体强化学习在路径规划中的应用
+
+多智能体强化学习（MARL）在协作机器人和集群控制任务中已展现出良好性能。Rashid 等人提出的 QMIX 通过单调值分解将全局 Q 值表示为局部 Q 值的非负组合，在保持集中式训练优势的同时支持分布式执行，并在星际争霸 II 微操作任务中取得了优于独立学习和值分解网络（VDN）的表现。
+
+然而，现有 MARL 应用多集中于游戏环境或小规模机器人平台，对大规模无人机覆盖路径规划关注有限。Sunehag 等人提出的 VDN 虽能分解全局回报，但缺乏 QMIX 混合网络的灵活性；Tampuu 等人将独立 Q 学习用于多智能体对抗场景，却因缺乏显式协调机制在协作任务中受限。总体来看，现有 MARL 方法在高障碍密度、可达区域碎片化的大规模无人机集群场景中仍缺乏系统性研究。
+
+3.2 无人机集群覆盖路径规划方法
+
+无人机集群覆盖路径规划已使用多种方法进行了广泛研究。在传统方法中，基于优化的算法（如遗传算法（GA）和粒子群优化（PSO））可在已知环境模型下搜索接近最优的覆盖路径，但计算复杂度随地图大小和障碍密度快速增长，在大规模、密集障碍场景下难以满足实时性要求。
+
+为克服这一问题，研究者开始探索基于学习的方法，特别是深度强化学习在路径规划中的应用。Mnih 等人证明了深度 Q 网络（DQN）可以从原始像素输入中学习有效策略，但单智能体 DQN 在多无人机场景中面临状态维度随无人机数量指数增长且缺乏显式交互建模的局限。
+
+近年来，多智能体强化学习（MARL）被引入多无人机协同任务。Lowe 等人提出的 MADDPG 通过集中式 critic 融合全局信息以提升策略学习效果，但在推理阶段仍依赖全局状态，限制了在通信受限、信息不完全共享场景中的部署灵活性。
+
+3.3 强化学习中的奖励塑形
+
+针对复杂环境下覆盖效率和探索不足问题，合理的奖励设计是提升学习效率和覆盖质量的关键途径。Ng 等人证明了基于势能的奖励塑形保持最优策略，使其成为引导探索的原则性方法。后续研究将该理论扩展到多智能体场景，表明它可以在不改变最优策略的情况下改善协调。
+
+在覆盖路径规划中，奖励塑形已被用于引导智能体探索未访问区域。然而，大多数现有工作专注于单智能体场景或简单的奖励结构，缺乏针对多无人机覆盖任务的系统性奖励塑形方法。
+
+3.4 MARL 中的训练稳定性
+
+除了奖励设计外，训练过程的稳定性同样直接影响多无人机覆盖任务在复杂环境中的可部署性。训练稳定性是 MARL 中的关键挑战，特别是在密集障碍的复杂环境中。性能退化和训练崩溃是常见问题，可能阻止收敛到最优策略。已提出多种技术来解决这个问题，包括经验回放、目标网络和优先经验回放。
+
+然而，这些技术主要针对单智能体场景设计。在多智能体场景中，环境的非平稳性使训练更具挑战性，现有方法缺乏针对高障碍密度场景下性能退化问题的系统性解决方案。
+
+3.5 研究空白
+
+综合上述文献综述，当前研究存在以下空白：
+
+（1）高障碍密度场景评估有限：大多数现有的用于无人机路径规划的 MARL 方法在无障碍或低障碍密度（p≤0.15）场景中进行评估，缺乏在高障碍密度（p≥0.20）场景下的系统评估。
+
+（2）可扩展性限制：现有方法通常在小型地图（12×12 至 20×20）上进行评估，在较大地图（24×24 及以上）上的评估有限，使得这些方法是否能扩展到实际应用尚不清楚。
+
+（3）对训练稳定性的关注不足：虽然训练稳定性对实际部署至关重要，但大多数现有工作并未明确解决高障碍密度场景下的性能退化问题。
+
+（4）缺乏系统的消融研究：由于消融研究不足，各个组件（奖励塑形、恢复机制）的贡献往往不清楚。
+
+================================================================================
+四、研究内容与目标
+================================================================================
+
+4.1 研究内容
+
+（1）基于 QMIX 的多无人机覆盖路径规划框架设计
+设计并实现基于 QMIX 算法的多无人机覆盖路径规划系统，包括环境建模、状态表示、动作空间定义和奖励函数设计。系统应支持不同地图大小（12×12、16×16、24×24）和不同无人机数量（4、6）的配置。
+
+（2）势能型奖励塑形机制设计
+结合未访问距离势能和障碍清晰度势能，设计势能型奖励塑形机制，引导无人机主动探索未覆盖区域，同时避免在障碍边缘的低效游走。该机制应基于已有势能奖励塑形理论，在保持最优策略的同时改善探索方向。
+
+（3）动态探索-恢复机制设计
+设计动态探索-恢复机制，通过性能退化检测和模型回滚，提高高障碍密度场景下的训练稳定性。该机制应能够监控训练过程中的性能退化，并在检测到性能下降时自动从次优策略中恢复。
+
+（4）系统性可扩展性评估
+在 24 组配置下进行系统化实验：3 种地图大小（12×12、16×16、24×24）× 2 种无人机数量（4、6）× 4 种障碍密度（0.0、0.05、0.10、0.20），全面评估方法的可扩展性和鲁棒性。
+
+（5）消融实验与性能分析
+通过消融实验定量分析各关键组件（势能型奖励塑形、动态探索-恢复机制）的贡献，验证各组件对最终性能的影响。
+
+4.2 研究目标
+
+（1）主要目标
+将 QMIX 系统性地应用于多无人机高障碍密度覆盖任务，在高障碍密度（0.20）场景下实现平均覆盖率 ≥ 75%，其中 24×24 大规模地图、6 架无人机配置达到覆盖率 ≥ 75%。
+
+（2）次要目标
+- 设计并验证势能型奖励塑形机制的有效性，证明其能够引导无人机主动探索未覆盖区域并减少障碍附近的无效游走。
+- 设计并验证动态探索-恢复机制的有效性，将高障碍密度场景下的训练失败率从 18% 降至 ≤ 5%。
+- 在 24 组实验配置下全面评估方法性能，证明方法具有良好的可扩展性（地图面积增加 4 倍，覆盖率下降 ≤ 5%）。
+- 提供完整的可复现性支持，包括公开代码、实验数据和复现脚本。
+
+================================================================================
+五、研究方法与技术路线
+================================================================================
+
+5.1 研究方法
+
+（1）环境建模方法
+采用离散栅格地图（GridWorld）作为多无人机覆盖任务的仿真环境。GridWorld 将连续空间离散化为 H×W 的栅格单元，每个单元可以是可行区域或障碍物。环境参数包括：地图大小（H×W∈{12×12,16×16,24×24}）、障碍密度（p∈{0,0.05,0.10,0.20}）、无人机数量（N∈{4,6}）、最大步数（T_max=2000）和能量预算（E_budget=3600）。
+
+（2）QMIX 算法实现
+采用集中式训练、分布式执行范式。每个无人机使用共享的 FC1-GRU-FC2 网络从局部观察计算局部 Q 值，通过超网络将局部 Q 值混合为全局 Q 值，满足单调性约束。基于全局 Q 值使用 epsilon-greedy 策略选择动作。
+
+（3）势能型奖励塑形方法
+设计未访问距离势能和障碍清晰度势能，结合基础奖励函数，形成完整的奖励信号。未访问距离势能引导无人机向未访问区域移动，障碍清晰度势能避免无人机在障碍边缘的低效游走。
+
+（4）动态探索-恢复机制方法
+监控训练过程中的性能指标（如覆盖率），当检测到性能退化时，自动回滚到之前保存的模型检查点，并调整探索率（epsilon）以增加探索。
+
+（5）实验评估方法
+采用全因子设计（Full Factorial Design），覆盖地图大小、无人机数量和障碍密度三个关键因素，共 24 组配置。每个配置使用固定随机种子（1234）运行 600 个训练 episodes 以确保可复现性。
+
+5.2 技术路线
+
+第一阶段：文献调研与问题分析（1-2 个月）
+- 深入调研多智能体强化学习在路径规划中的应用现状
+- 分析现有方法在高障碍密度、大规模地图场景下的局限性
+- 明确研究问题和研究空白
+
+第二阶段：方法设计与实现（3-5 个月）
+- 设计基于 QMIX 的多无人机覆盖路径规划框架
+- 实现 GridWorld 环境和 QMIX 算法
+- 设计并实现势能型奖励塑形机制
+- 设计并实现动态探索-恢复机制
+
+第三阶段：实验验证与分析（6-8 个月）
+- 在 24 组配置下进行系统化实验
+- 进行消融实验，分析各组件贡献
+- 分析实验结果，验证方法的有效性和可扩展性
+
+第四阶段：论文撰写与完善（9-12 个月）
+- 撰写学位论文
+- 整理代码和实验数据，提供可复现性支持
+- 修改完善论文内容
+
+================================================================================
+六、预期成果
+================================================================================
+
+6.1 理论成果
+
+（1）提出基于 QMIX 的多无人机覆盖路径规划方法，拓展了 MARL 在复杂环境下的应用边界。
+
+（2）设计势能型奖励塑形机制，结合未访问距离势能和障碍清晰度势能，丰富了多智能体强化学习在探索效率方面的理论方法。
+
+（3）设计动态探索-恢复机制，通过性能退化检测和模型回滚，丰富了多智能体强化学习在训练稳定性方面的理论方法。
+
+6.2 实验成果
+
+（1）在无障碍场景下达到 97.8% 的平均覆盖率，在高障碍密度（0.20）场景下平均覆盖率达到 77.5%，其中 24×24 地图、6 架无人机配置达到 76.3% 的覆盖率。
+
+（2）消融实验表明，势能型奖励塑形机制通过引导探索方向减少了无效游走，动态恢复机制将训练失败率从 18% 降至 4%，显著提升了训练稳定性。
+
+（3）在 24 组实验配置下全面评估方法性能，证明方法具有良好的可扩展性（地图面积增加 4 倍，覆盖率仅下降 3.5%）。
+
+6.3 应用成果
+
+（1）提供完整的可复现性支持，包括公开代码、实验数据和复现脚本，便于其他研究者验证和扩展。
+
+（2）研究成果可直接应用于农业监测、灾害巡检、林业巡护等高障碍密度环境的实际应用场景。
+
+6.4 学术成果
+
+（1）完成一篇高质量的学位论文。
+
+（2）发表 1-2 篇学术论文（目标期刊：Sensors、Applied Intelligence 等）。
+
+================================================================================
+七、研究计划与进度安排
+================================================================================
+
+7.1 研究计划
+
+| 时间阶段 | 主要工作内容 | 预期成果 |
+|---------|------------|---------|
+| 第 1-2 个月 | 文献调研与问题分析 | 完成文献综述，明确研究问题 |
+| 第 3-5 个月 | 方法设计与实现 | 完成方法设计和代码实现 |
+| 第 6-8 个月 | 实验验证与分析 | 完成所有实验，获得实验结果 |
+| 第 9-12 个月 | 论文撰写与完善 | 完成学位论文初稿和修改 |
+
+7.2 进度安排
+
+（1）已完成工作
+- 完成文献调研，明确研究问题和研究空白
+- 完成基于 QMIX 的多无人机覆盖路径规划框架设计和实现
+- 完成势能型奖励塑形机制和动态探索-恢复机制的设计和实现
+- 完成 24 组配置下的系统化实验，获得完整的实验结果
+- 完成消融实验，验证各组件贡献
+- 完成论文初稿撰写
+
+（2）后续工作
+- 完善论文内容，提高论文质量
+- 整理代码和实验数据，提供完整的可复现性支持
+- 准备论文答辩
+
+================================================================================
+八、参考文献
+================================================================================
+
+[1] Puente-Castro, A.; Rivero, D.; Pazos, A.; Fernandez-Blanco, E. UAV Swarm Path Planning with Reinforcement Learning for Field Prospecting. Applied Intelligence 2022, 52, 14101–14118.
+
+[2] Zhang, Z.; Wu, J.; He, C. Search Method of Disaster Inspection Coordinated by Multi-UAV. In Proceedings of the 2019 Chinese Control Conference (CCC), Guangzhou, China, 27–30 July 2019; IEEE: Piscataway, NJ, USA, 2019.
+
+[3] Yu, Y.; Duan, X.; Zhao, F.; Zhou, J.; Lin, C.; Qu, K. Cooperative Coverage Mission Planning for Multi-UAV Based on the Dual-Ring Dynamic Scheduler. IEEE Internet of Things Journal 2025, 12, 44402–44419.
+
+[4] Mazurek, K.; Zając, Ł.; Suchocka, M.; Jelonek, T.; Juźwiak, A.; Kubus, M. UAV-Based Multispectral Imagery for Area-Wide Sustainable Tree Risk Management. Sustainability 2025, 17, 8908.
+
+[5] Dhruva, A.; Hartley, R.J.L.; Redpath, T.A.N.; Estarija, H.J.C.; Cajes, D.; Massam, P.D. Effective UAV Photogrammetry for Forest Management: New Insights on Side Overlap and Flight Parameters. Forests 2024, 15, 2135.
+
+[6] Yu, Z.; Zhang, Y.; Jiang, B.; Fu, J.; Jin, Y. A Review on Fault-Tolerant Cooperative Control of Multiple Unmanned Aerial Vehicles. Chinese Journal of Aeronautics 2022, 35, 1–18.
+
+[7] Chen, J.; Wang, Z.; Li, Z.; Shen, J.; Chen, P. Multi-UAV Coverage Path Planning Based on Q-Learning. IEEE Sensors Journal 2025, 25, 30444–30454.
+
+[8] Lowe, R.; Wu, Y.; Tamar, A.; Harb, J.; Abbeel, P.; Mordatch, I. Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments. In Advances in Neural Information Processing Systems 30 (NeurIPS 2017), Long Beach, CA, USA, 4–9 December 2017; Curran Associates, Inc.: Red Hook, NY, USA, 2017; pp. 6379–6390.
+
+[9] Foerster, J.; Farquhar, G.; Afouras, T.; Nardelli, N.; Whiteson, S. Counterfactual Multi-Agent Policy Gradients. In Proceedings of the Thirty-Second AAAI Conference on Artificial Intelligence (AAAI-18), New Orleans, LA, USA, 2–7 February 2018; AAAI Press: Palo Alto, CA, USA, 2018; pp. 2974–2982.
+
+[10] Sunehag, P.; Lever, G.; Gruslys, A.; Czarnecki, W.M.; Zambaldi, V.; Jaderberg, M.; Lanctot, M.; Sonnerat, N.; Leibo, J.Z.; Tuyls, K.; et al. Value-Decomposition Networks For Cooperative Multi-Agent Learning Based On Team Reward. In Proceedings of the 17th International Conference on Autonomous Agents and MultiAgent Systems (AAMAS 2018), Stockholm, Sweden, 10–15 July 2018; International Foundation for Autonomous Agents and Multiagent Systems: Richland, SC, USA, 2018; pp. 2085–2087.
+
+[11] Rashid, T.; Samvelyan, M.; Schroeder de Witt, C.; Farquhar, G.; Foerster, J.; Whiteson, S. QMIX: Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning. In Proceedings of the 35th International Conference on Machine Learning (ICML 2018), Stockholm, Sweden, 10–15 July 2018; PMLR: Cambridge, MA, USA, 2018; Volume 80, pp. 4295–4304.
+
+[12] Rahman, M.; Sarkar, N.I.; Lutui, R. A Survey on Multi-UAV Path Planning: Classification, Algorithms, Open Research Problems, and Future Directions. Drones 2025, 9, 263.
+
+[13] Gasteratos, G.; Karydis, I. Strategic Launch Pad Positioning: Optimizing Drone Path Planning through Genetic Algorithms. Information 2025, 16, 897.
+
+[14] Duong, T.T.N.; Bui, D.-N.; Phung, M.D. Navigation Variable-Based Multi-Objective Particle Swarm Optimization for UAV Path Planning with Kinematic Constraints. Neural Computing and Applications 2025, 37, 5683–5697.
+
+[15] Mnih, V.; Kavukcuoglu, K.; Silver, D.; Rusu, A.A.; Veness, J.; Bellemare, M.G.; Graves, A.; Riedmiller, M.; Fidjeland, A.K.; Ostrovski, G.; et al. Human-level control through deep reinforcement learning. Nature 2015, 518, 529–533.
+
+[16] Lowe, R.; Wu, Y.; Tamar, A.; Harb, J.; Abbeel, P.; Mordatch, I. Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments. arXiv 2017, arXiv:1706.02275.
+
+[17] Fotouhi, A.; Ding, M.; Hassan, M. Deep Q-Learning for Two-Hop Communications of Drone Base Stations. Sensors 2021, 21, 1960.
+
+[18] Tampuu, A.; Matiisen, T.; Kodelja, D.; Kuzovkin, I.; Korjus, K.; Aru, J.; Aru, J.; Vicente, R. Multiagent Cooperation and Competition with Deep Reinforcement Learning. arXiv 2015, arXiv:1511.08779.
+
+[19] Ng, A.Y.; Harada, D.; Russell, S. Policy Invariance Under Reward Transformations: Theory and Application to Reward Shaping. In Proceedings of the Sixteenth International Conference on Machine Learning (ICML 1999), Bled, Slovenia, 27–30 June 1999; Morgan Kaufmann Publishers Inc.: San Francisco, CA, USA, 1999; pp. 278–287.
+
+[20] Mnih, V.; Kavukcuoglu, K.; Silver, D.; Graves, A.; Antonoglou, I.; Wierstra, D.; Riedmiller, M. Playing Atari with Deep Reinforcement Learning. arXiv 2013, arXiv:1312.5602.
+
+[21] Van Hasselt, H.; Guez, A.; Silver, D. Deep Reinforcement Learning with Double Q-Learning. In Proceedings of the Thirtieth AAAI Conference on Artificial Intelligence (AAAI-16), Phoenix, AZ, USA, 12–17 February 2016; AAAI Press: Palo Alto, CA, USA, 2016; pp. 2094–2100.
+
+[22] Schaul, T.; Quan, J.; Antonoglou, I.; Silver, D. Prioritized Experience Replay. In Proceedings of the 4th International Conference on Learning Representations (ICLR 2016), San Juan, Puerto Rico, 2–4 May 2016; OpenReview.net: La Jolla, CA, USA, 2016.
+
+================================================================================
+（注：以上内容根据论文内容整理，请根据实际开题报告模板格式进行调整）
+
+
+
+
+

@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 实验数据（大文件，可选上传）
+experiments/logs/
+experiments/checkpoints/
+*.pth
+*.pt
+*.h5
+*.ckpt
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 临时文件
+*.log
+*.tmp
+*.bak
+*.backup
+*.cache
+
+# 论文相关（可选，如果不想上传）
+*.docx
+*.doc
+*.wps
+paper_*.md
+paper_*.tex
+submissions/
+Download*/
+
+# 个人文件
+*.pdf
+
+# 测试文件
+test_*.py
+*_test.py

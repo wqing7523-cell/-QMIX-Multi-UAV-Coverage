@@ -1,0 +1,15 @@
+﻿algorithm: qlearning
+network_type: global
+learning_rate: 0.001
+gamma: 0.91
+epsilon_start: 0.47
+epsilon_end: 0.05
+epsilon_decay: 0.93
+memory_size: 200
+batch_size: 32
+target_update_interval: 50
+hidden_dim: 64
+optimizer: rmsprop
+episodes: 10
+max_steps: 200
+log_interval: 5

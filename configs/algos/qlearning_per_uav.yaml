@@ -1,0 +1,17 @@
+﻿# Q-Learning configuration (per-UAV networks)
+algorithm: qlearning
+network_type: per_uav
+learning_rate: 0.001
+gamma: 0.91
+epsilon_start: 0.47
+epsilon_end: 0.05
+epsilon_decay: 0.93
+memory_size: 200
+batch_size: 32
+min_memory_size: 32
+target_update_interval: 100
+hidden_dim: 167
+optimizer: rmsprop
+episodes: 50
+log_interval: 5
+eval_interval: 25

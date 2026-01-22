@@ -1,0 +1,22 @@
+# +动态恢复配置：无势能奖励、有动态恢复
+algorithm: qmix
+learning_rate: 0.0002
+gamma: 0.99
+buffer_size: 12000
+batch_size: 64
+min_buffer: 1000
+agent_hidden_dim: 64
+mixing_hidden_dim: 32
+hyper_hidden_dim: 64
+epsilon_start: 1.0
+epsilon_end: 0.2
+epsilon_decay: 0.9999
+target_update_interval: 400
+episodes: 600
+log_interval: 10
+double_q: true
+grad_clip: 10.0
+# 消融实验标志
+enable_potential_reward: false
+enable_dynamic_recovery: true
+

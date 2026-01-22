@@ -1,0 +1,6 @@
+﻿# Base configuration
+device: cuda
+seed: 42
+log_dir: experiments/logs
+checkpoint_dir: experiments/checkpoints
+figure_dir: experiments/figures

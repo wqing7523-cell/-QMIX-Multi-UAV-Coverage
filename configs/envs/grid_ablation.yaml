@@ -1,0 +1,12 @@
+# 消融实验环境配置（24×24、p=0.20）
+map_size: 24
+num_uavs: 6
+obstacle_density: 0.20
+obstacle_type: static
+max_steps: 2000
+energy_budget: 3600
+seed: 1234
+# 势能奖励权重（当enable_potential_reward=true时使用）
+shaping_weight: 10.0
+obstacle_shaping_weight: 7.0  # p=0.20时使用7.0
+

@@ -1,0 +1,19 @@
+﻿# Q-Learning test configuration
+algorithm: qlearning
+network_type: global
+learning_rate: 0.001
+gamma: 0.91
+epsilon_start: 0.5
+epsilon_min: 0.05
+epsilon_decay: 0.95
+memory_size: 500
+batch_size: 32
+target_update_interval: 20
+hidden_dim: 64
+action_dim: 4
+optimizer: rmsprop
+episodes: 5
+warmup_steps: 50
+max_steps_per_episode: 50
+log_interval: 1
+save_best: false

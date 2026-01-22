@@ -1,0 +1,42 @@
+algorithm: qmix
+learning_rate: 0.0002
+gamma: 0.99
+buffer_size: 12000
+batch_size: 64
+min_buffer: 1000
+agent_hidden_dim: 64
+mixing_hidden_dim: 32
+hyper_hidden_dim: 64
+epsilon_start: 1.0
+epsilon_end: 0.08
+epsilon_min: 0.08
+epsilon_decay: 0.9999
+# Dynamic epsilon settings for different obstacle densities
+epsilon_end_medium_density: 0.10  # For obstacle_density >= 0.10
+epsilon_decay_medium_density: 0.9997
+epsilon_end_high_density: 0.11  # For obstacle_density >= 0.20 (从0.10调整到0.11，平衡探索和利用)
+epsilon_decay_high_density: 0.9996  # 从0.9997调整到0.9996，中等衰减速度
+epsilon_accel_episode: 350  # 从400提前到350，在崩溃前加速
+epsilon_accel_decay: 0.9997
+epsilon_plateaus: []
+recovery:
+  enabled: true
+  coverage_threshold: 0.98  # Base threshold for low/no obstacles
+  # Dynamic recovery thresholds for different obstacle densities
+  coverage_threshold_medium_density: 0.95  # For obstacle_density >= 0.10
+  coverage_threshold_high_density: 0.85  # For obstacle_density >= 0.20 (从0.90降低到0.85，更容易触发)
+  drop_tolerance: 0.04
+  drop_tolerance_medium_density: 0.04
+  drop_tolerance_high_density: 0.06  # 从0.05增加到0.06，增加容错
+  patience: 8
+  cooldown: 100
+  reset_epsilon: 0.2
+  epsilon_boost: 0.05
+  min_improvement: 0.002
+  start_episode: 100  # 从150提前到100，更早开始监控
+target_update_interval: 400
+episodes: 600
+log_interval: 10
+double_q: true
+grad_clip: 10.0
+
