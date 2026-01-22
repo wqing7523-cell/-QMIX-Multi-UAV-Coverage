@@ -54,18 +54,75 @@ desktop.ini
 *.backup
 *.cache
 
-# 论文相关（可选，如果不想上传）
+# 论文相关（不上传）
 *.docx
 *.doc
 *.wps
 paper_*.md
 paper_*.tex
+paper_*.pdf
 submissions/
 Download*/
 
 # 个人文件
 *.pdf
 
+# 分析脚本和文档（不上传）
+analyze_*.py
+check_*.py
+compare_*.py
+extract_*.py
+monitor_*.py
+display_*.py
+show_*.py
+organize_*.py
+generate_*.py
+curriculum_*.py
+continuous_*.py
+*_SUMMARY.md
+*_ANALYSIS.md
+*_EXPLANATIONS.md
+*_DESCRIPTION.md
+*_FRAMEWORK.md
+*_GOALS.md
+*_FEASIBILITY.md
+*_UPDATE.md
+*_COMPLETION*.md
+*_MIGRATION*.md
+*_MODIFICATION*.md
+*_IMPROVEMENTS*.md
+curriculum_*.md
+curriculum_*.txt
+improvement_*.md
+parameter_*.md
+test_result_*.md
+experiment_status.txt
+periodic_*.md
+presentation_*.md
+oral_*.md
+NEXT_STEPS.md
+TASK_*.md
+PROGRESS_*.md
+PROJECT_*.md
+PUBLICATION_*.md
+
+# 转换脚本（不上传）
+convert_to_*.py
+renumber_*.py
+
+# GitHub 指南（不上传）
+GITHUB_*.md
+QUICK_START_*.md
+upload_to_github.ps1
+cleanup_repository.ps1
+
 # 测试文件
 test_*.py
 *_test.py
+test.py
+
+# 临时文件
+temp_*.ps1
+
+# README 文件（除了主 README.md）
+README_*.md
